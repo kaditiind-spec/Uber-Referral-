@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VIS Auto-Payout System Specification & Dashboard</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts (Inter & Plus Jakarta Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    /* Sleek Scrollbars */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #030712;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 99px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+    /* Glowing visual effects */
+    .glow-indigo {
+      box-shadow: 0 0 40px -10px rgba(99, 102, 241, 0.15);
+    }
+    .glow-emerald {
+      box-shadow: 0 0 40px -10px rgba(16, 185, 129, 0.15);
+    }
+  </style>
+</head>
+<body class="bg-[#030712] text-slate-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500/30 selection:text-white">
+
+  <header class="border-b border-slate-800/80 bg-[#030712]/80 backdrop-blur-md sticky top-0 z-50 px-6 py-4 flex flex-col xl:flex-row justify-between items-center gap-4">
+    <div class="flex items-center gap-4">
+      <div class="h-11 w-11 rounded-xl bg-gradient-to-tr from-indigo-600 to-indigo-400 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-[9px] font-bold tracking-wider text-indigo-400 uppercase bg-indigo-500/10 px-2 py-0.5 rounded">Platform Architecture Standard</span>
+          <span class="text-[9px] font-bold tracking-wider text-emerald-400 uppercase bg-emerald-500/10 px-2 py-0.5 rounded">Model 4 Approved</span>
+        </div>
+        <h1 class="text-xl font-extrabold text-white tracking-tight mt-0.5">VIS Referral Commission Auto-Payout System</h1>
+        <p class="text-xs text-slate-400">(Uber-Style Wallet & Automated Commission Infrastructure)</p>
+      </div>
+    </div>
+
+    <nav class="flex items-center bg-slate-900/60 p-1 rounded-xl border border-slate-800 text-xs gap-1">
+      <button onclick="switchTab('overview')" id="tab-btn-overview" class="tab-btn px-4 py-2 font-medium rounded-lg transition-all duration-150 bg-indigo-600 text-white shadow-sm">
+        1. Executive Summary
+      </button>
+      <button onclick="switchTab('pipeline')" id="tab-btn-pipeline" class="tab-btn px-4 py-2 font-medium text-slate-400 rounded-lg transition-all duration-150 hover:text-slate-200">
+        2. Core Business Flow
+      </button>
+      <button onclick="switchTab('stages')" id="tab-btn-stages" class="tab-btn px-4 py-2 font-medium text-slate-400 rounded-lg transition-all duration-150 hover:text-slate-200">
+        3 & 4. Stages & Requirements
+      </button>
+      <button onclick="switchTab('models')" id="tab-btn-models" class="tab-btn px-4 py-2 font-medium text-slate-400 rounded-lg transition-all duration-150 hover:text-slate-200">
+        5. Payment Models Evaluation
+      </button>
+    </nav>
+  </header>
+
+  <!-- Main Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-8 space-y-8">
+
+    <section id="tab-overview" class="space-y-6">
+      
+      <!-- Sub Title Flag -->
+      <div class="border-b border-slate-800/80 pb-4">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-indigo-400">Section 1</h2>
+        <p class="text-2xl font-black text-white tracking-tight mt-0.5">Executive Summary</p>
+      </div>
+
+      <!-- Problem Statement Card -->
+      <div class="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-6 md:p-8 relative overflow-hidden glow-indigo">
+        <div class="absolute -right-12 -bottom-12 w-64 h-64 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        
+        <span class="text-[10px] font-bold uppercase tracking-widest text-indigo-400 bg-indigo-500/10 px-3 py-1 rounded-full">The Problem & Challenge</span>
+        <h3 class="text-xl font-bold text-slate-100 mt-4">What Is The Actual Problem?</h3>
+        <p class="text-slate-300 text-sm mt-2 max-w-3xl leading-relaxed font-medium">
+          VIS wants to build an automated referral commission payout system similar to how Uber pays drivers.
+        </p>
+
+        <!-- Currently List -->
+        <div class="mt-6 border-t border-slate-800/60 pt-6">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">Currently:</h4>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
+            <div class="bg-slate-950 border border-slate-800/80 p-4 rounded-xl">
+              <span class="w-6 h-6 rounded-lg bg-indigo-500/10 text-indigo-400 text-xs font-bold flex items-center justify-center shrink-0 mb-3">1</span>
+              <p class="text-xs text-slate-300 leading-relaxed font-medium">Recruiters/referrers bring students into the system.</p>
+            </div>
+            <div class="bg-slate-950 border border-slate-800/80 p-4 rounded-xl">
+              <span class="w-6 h-6 rounded-lg bg-indigo-500/10 text-indigo-400 text-xs font-bold flex items-center justify-center shrink-0 mb-3">2</span>
+              <p class="text-xs text-slate-300 leading-relaxed font-medium">Students make payments in multiple stages.</p>
+            </div>
+            <div class="bg-slate-950 border border-slate-800/80 p-4 rounded-xl">
+              <span class="w-6 h-6 rounded-lg bg-indigo-500/10 text-indigo-400 text-xs font-bold flex items-center justify-center shrink-0 mb-3">3</span>
+              <p class="text-xs text-slate-300 leading-relaxed font-medium">Recruiters earn commission/incentives at each stage.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <!-- Does NOT want -->
+        <div class="bg-rose-950/5 border border-rose-950/50 rounded-2xl p-6">
+          <div class="flex items-center gap-2.5 text-rose-400">
+            <div class="w-2 h-2 rounded-full bg-rose-500"></div>
+            <h3 class="font-bold text-xs uppercase tracking-wider">The Company Does NOT Want:</h3>
+          </div>
+          <ul class="mt-4 space-y-2.5">
+            <li class="flex items-center gap-3 bg-slate-900/40 border border-slate-800/50 px-4 py-3 rounded-xl text-slate-300 text-xs font-medium">
+              <span class="text-rose-500">✕</span> Manual payout processing
+            </li>
+            <li class="flex items-center gap-3 bg-slate-900/40 border border-slate-800/50 px-4 py-3 rounded-xl text-slate-300 text-xs font-medium">
+              <span class="text-rose-500">✕</span> Manual Excel calculations
+            </li>
+            <li class="flex items-center gap-3 bg-slate-900/40 border border-slate-800/50 px-4 py-3 rounded-xl text-slate-300 text-xs font-medium">
+              <span class="text-rose-500">✕</span> Manual bank transfers
+            </li>
+            <li class="flex items-center gap-3 bg-slate-900/40 border border-slate-800/50 px-4 py-3 rounded-xl text-slate-300 text-xs font-medium">
+              <span class="text-rose-500">✕</span> Finance teams approving payouts manually
+            </li>
+          </ul>
+        </div>
+
+        <!-- Instead, Wants -->
+        <div class="bg-emerald-950/5 border border-emerald-950/50 rounded-2xl p-6">
+          <div class="flex items-center gap-2.5 text-emerald-400">
+            <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+            <h3 class="font-bold text-xs uppercase tracking-wider">Instead, The Company Wants:</h3>
+          </div>
+          <ul class="mt-4 space-y-2.5">
+            <li class="flex items-center gap-3 bg-slate-900/40 border border-slate-800/50 px-4 py-3 rounded-xl text-slate-300 text-xs font-medium">
+              <span class="text-emerald-400">✓</span> Automatic commission calculation
+            </li>
+            <li class="flex items-center gap-3 bg-slate-900/40 border border-slate-800/50 px-4 py-3 rounded-xl text-slate-300 text-xs font-medium">
+              <span class="text-emerald-400">✓</span> Automated recruiter earnings
+            </li>
+            <li class="flex items-center gap-3 bg-slate-900/40 border border-slate-800/50 px-4 py-3 rounded-xl text-slate-300 text-xs font-medium">
+              <span class="text-emerald-400">✓</span> Instant or controlled payouts
+            </li>
+            <li class="flex items-center gap-3 bg-slate-900/40 border border-slate-800/50 px-4 py-3 rounded-xl text-slate-300 text-xs font-medium">
+              <span class="text-emerald-400">✓</span> Real-time recruiter earning visibility
+            </li>
+            <li class="flex items-center gap-3 bg-slate-900/40 border border-slate-800/50 px-4 py-3 rounded-xl text-slate-300 text-xs font-medium">
+              <span class="text-emerald-400">✓</span> Scalable infrastructure for hundreds/thousands of recruiters
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-r from-slate-900 to-slate-950 border border-indigo-500/20 rounded-2xl p-6 md:p-8">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-indigo-400">In Simple Words:</h4>
+        <p class="text-base text-slate-200 mt-2 leading-relaxed font-semibold">
+          "When a recruiter refers a student and that student makes payments, the recruiter should automatically receive commission into a digital earning system and withdraw the money similarly to how Uber drivers withdraw their earnings."
+        </p>
+      </div>
+
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">This System Is Essentially:</h4>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          
+          <div class="bg-slate-900/40 border border-slate-800/80 p-5 rounded-xl flex flex-col justify-between hover:border-slate-700 transition duration-150">
+            <div class="text-indigo-400">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            </div>
+            <h5 class="text-xs font-bold text-white mt-4 uppercase">Fintech Payout System</h5>
+          </div>
+
+          <div class="bg-slate-900/40 border border-slate-800/80 p-5 rounded-xl flex flex-col justify-between hover:border-slate-700 transition duration-150">
+            <div class="text-indigo-400">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+            </div>
+            <h5 class="text-xs font-bold text-white mt-4 uppercase">Wallet Infrastructure</h5>
+          </div>
+
+          <div class="bg-slate-900/40 border border-slate-800/80 p-5 rounded-xl flex flex-col justify-between hover:border-slate-700 transition duration-150">
+            <div class="text-indigo-400">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+            </div>
+            <h5 class="text-xs font-bold text-white mt-4 uppercase">Commission Engine</h5>
+          </div>
+
+          <div class="bg-slate-900/40 border border-slate-800/80 p-5 rounded-xl flex flex-col justify-between hover:border-slate-700 transition duration-150">
+            <div class="text-indigo-400">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+            </div>
+            <h5 class="text-xs font-bold text-white mt-4 uppercase">Banking Automation System</h5>
+          </div>
+
+          <div class="bg-slate-900/40 border border-slate-800/80 p-5 rounded-xl flex flex-col justify-between hover:border-slate-700 transition duration-150">
+            <div class="text-indigo-400">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+            </div>
+            <h5 class="text-xs font-bold text-white mt-4 uppercase">Referral Tracking System</h5>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <section id="tab-pipeline" class="hidden space-y-6">
+      <div class="border-b border-slate-800/80 pb-4">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-indigo-400">Section 2</h2>
+        <p class="text-2xl font-black text-white tracking-tight mt-0.5">Core Business Flow</p>
+        <p class="text-xs text-slate-400">(Common Flow for All Models)</p>
+      </div>
+
+      <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-6 md:p-8 max-w-2xl mx-auto">
+        <div class="relative flex flex-col items-center">
+          
+          <!-- Connective background line -->
+          <div class="absolute top-4 bottom-4 w-0.5 bg-slate-800 pointer-events-none"></div>
+
+          <!-- Flowchart Nodes (10 Steps Verbatim from doc) -->
+          <div class="space-y-6 w-full relative z-10">
+            
+            <!-- Node 1 -->
+            <div class="flex gap-4 items-center bg-slate-900/45 border border-slate-800 p-4 rounded-xl">
+              <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-xs font-bold text-white shrink-0 shadow-sm">1</div>
+              <div>
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider">Recruiter Registers</h4>
+                <p class="text-[11px] text-slate-400 mt-0.5">• Mobile verification &bull; Bank details submitted &bull; Account created</p>
+              </div>
+            </div>
+
+            <!-- Node 2 -->
+            <div class="flex gap-4 items-center bg-slate-900/45 border border-slate-800 p-4 rounded-xl">
+              <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-xs font-bold text-white shrink-0 shadow-sm">2</div>
+              <div>
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider">Referral Code Generated</h4>
+                <p class="text-[11px] text-slate-400 mt-0.5">• Unique recruiter code &bull; Linked to recruiter ID</p>
+              </div>
+            </div>
+
+            <!-- Node 3 -->
+            <div class="flex gap-4 items-center bg-slate-900/45 border border-slate-800 p-4 rounded-xl">
+              <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-xs font-bold text-white shrink-0 shadow-sm">3</div>
+              <div>
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider">Recruiter Shares Code</h4>
+                <p class="text-[11px] text-slate-400 mt-0.5">• WhatsApp &bull; Email &bull; Social media</p>
+              </div>
+            </div>
+
+            <!-- Node 4 -->
+            <div class="flex gap-4 items-center bg-slate-900/45 border border-slate-800 p-4 rounded-xl">
+              <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-xs font-bold text-white shrink-0 shadow-sm">4</div>
+              <div>
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider">Student Registers Using Code</h4>
+                <p class="text-[11px] text-slate-400 mt-0.5">• Referral tracked &bull; Recruiter mapping created</p>
+              </div>
+            </div>
+
+            <!-- Node 5 -->
+            <div class="flex gap-4 items-center bg-slate-900/45 border border-slate-800 p-4 rounded-xl">
+              <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-xs font-bold text-white shrink-0 shadow-sm">5</div>
+              <div>
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider">Student Makes Payment</h4>
+                <p class="text-[11px] text-slate-400 mt-0.5">• Registration fee &bull; Tuition payment &bull; Visa/final payment</p>
+              </div>
+            </div>
+
+            <!-- Node 6 -->
+            <div class="flex gap-4 items-center bg-slate-900/45 border border-slate-800 p-4 rounded-xl">
+              <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-xs font-bold text-white shrink-0 shadow-sm">6</div>
+              <div>
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider">Payment Gateway Confirms</h4>
+                <p class="text-[11px] text-slate-400 mt-0.5">• UPI/Card/Net Banking &bull; Payment success confirmed</p>
+              </div>
+            </div>
+
+            <!-- Node 7 -->
+            <div class="flex gap-4 items-center bg-slate-900/45 border border-slate-800 p-4 rounded-xl">
+              <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-xs font-bold text-white shrink-0 shadow-sm">7</div>
+              <div>
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider">Commission Engine Validates</h4>
+                <p class="text-[11px] text-slate-400 mt-0.5">• Which stage completed? &bull; Eligible commission? &bull; Fraud checks passed?</p>
+              </div>
+            </div>
+
+            <!-- Node 8 -->
+            <div class="flex gap-4 items-center bg-slate-900/45 border border-slate-800 p-4 rounded-xl">
+              <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-xs font-bold text-white shrink-0 shadow-sm">8</div>
+              <div>
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider">Recruiter Wallet Updated</h4>
+                <p class="text-[11px] text-slate-400 mt-0.5">• Pending/available balance &bull; Commission ledger updated</p>
+              </div>
+            </div>
+
+            <!-- Node 9 -->
+            <div class="flex gap-4 items-center bg-slate-900/45 border border-slate-800 p-4 rounded-xl">
+              <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-xs font-bold text-white shrink-0 shadow-sm">9</div>
+              <div>
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider">Recruiter Withdraws Earnings</h4>
+                <p class="text-[11px] text-slate-400 mt-0.5">• Manual withdrawal request &bull; Auto payout trigger</p>
+              </div>
+            </div>
+
+            <!-- Node 10 -->
+            <div class="flex gap-4 items-center bg-slate-900/40 border border-emerald-500/30 bg-emerald-950/5 p-4 rounded-xl">
+              <div class="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-xs font-bold text-white shrink-0 shadow-sm">10</div>
+              <div>
+                <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Bank Transfer Happens</h4>
+                <p class="text-[11px] text-slate-300 mt-0.5">• Payout API triggered &bull; Money sent to recruiter</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-stages" class="hidden space-y-8">
+      
+      <!-- Part 3: Commission Stages -->
+      <div>
+        <div class="border-b border-slate-800/80 pb-4 mb-5">
+          <h2 class="text-xs font-bold uppercase tracking-widest text-indigo-400">Section 3</h2>
+          <p class="text-2xl font-black text-white tracking-tight mt-0.5">Referral Commission Stages</p>
+        </div>
+
+        <div class="bg-slate-950/80 border border-slate-800 rounded-2xl overflow-hidden">
+          <table class="min-w-full divide-y divide-slate-800 text-left text-xs md:text-sm">
+            <thead class="bg-slate-900/40">
+              <tr>
+                <th scope="col" class="px-6 py-4 font-bold text-slate-400 uppercase tracking-wider">Stage</th>
+                <th scope="col" class="px-6 py-4 font-bold text-slate-400 uppercase tracking-wider">Trigger Event</th>
+                <th scope="col" class="px-6 py-4 font-bold text-right text-emerald-400 uppercase tracking-wider">Example Commission</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60 font-medium text-slate-200">
+              <tr class="hover:bg-slate-900/20">
+                <td class="px-6 py-4 whitespace-nowrap font-bold text-white">Stage 1</td>
+                <td class="px-6 py-4 text-slate-300">Student registers + registration fee paid</td>
+                <td class="px-6 py-4 text-right font-mono font-bold text-emerald-400">₹10,000</td>
+              </tr>
+              <tr class="hover:bg-slate-900/20">
+                <td class="px-6 py-4 whitespace-nowrap font-bold text-white">Stage 2</td>
+                <td class="px-6 py-4 text-slate-300">Student makes first major payment</td>
+                <td class="px-6 py-4 text-right font-mono font-bold text-emerald-400">₹10,000–₹15,000</td>
+              </tr>
+              <tr class="hover:bg-slate-900/20">
+                <td class="px-6 py-4 whitespace-nowrap font-bold text-white">Stage 3</td>
+                <td class="px-6 py-4 text-slate-300">Student receives visa + final payment completed</td>
+                <td class="px-6 py-4 text-right font-mono font-bold text-emerald-400">₹10,000–₹15,000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Part 4: Main Business Requirements -->
+      <div>
+        <div class="border-b border-slate-800/80 pb-4 mb-5">
+          <h2 class="text-xs font-bold uppercase tracking-widest text-indigo-400">Section 4</h2>
+          <p class="text-2xl font-black text-white tracking-tight mt-0.5">Main Business Requirements</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <!-- Req 1 -->
+          <div class="bg-slate-900/40 border border-slate-800 p-4 rounded-xl flex items-start gap-3">
+            <span class="text-emerald-400 font-bold">✓</span>
+            <div>
+              <h5 class="text-xs font-bold text-slate-200 uppercase tracking-wider">Automatic vendor creation</h5>
+            </div>
+          </div>
+          <!-- Req 2 -->
+          <div class="bg-slate-900/40 border border-slate-800 p-4 rounded-xl flex items-start gap-3">
+            <span class="text-emerald-400 font-bold">✓</span>
+            <div>
+              <h5 class="text-xs font-bold text-slate-200 uppercase tracking-wider">Referral code tracking</h5>
+            </div>
+          </div>
+          <!-- Req 3 -->
+          <div class="bg-slate-900/40 border border-slate-800 p-4 rounded-xl flex items-start gap-3">
+            <span class="text-emerald-400 font-bold">✓</span>
+            <div>
+              <h5 class="text-xs font-bold text-slate-200 uppercase tracking-wider">Real-time commission calculation</h5>
+            </div>
+          </div>
+          <!-- Req 4 -->
+          <div class="bg-slate-900/40 border border-slate-800 p-4 rounded-xl flex items-start gap-3">
+            <span class="text-emerald-400 font-bold">✓</span>
+            <div>
+              <h5 class="text-xs font-bold text-slate-200 uppercase tracking-wider">Recruiter wallet system</h5>
+            </div>
+          </div>
+          <!-- Req 5 -->
+          <div class="bg-slate-900/40 border border-slate-800 p-4 rounded-xl flex items-start gap-3">
+            <span class="text-emerald-400 font-bold">✓</span>
+            <div>
+              <h5 class="text-xs font-bold text-slate-200 uppercase tracking-wider">Automated payout infrastructure</h5>
+            </div>
+          </div>
+          <!-- Req 6 -->
+          <div class="bg-slate-900/40 border border-slate-800 p-4 rounded-xl flex items-start gap-3">
+            <span class="text-emerald-400 font-bold">✓</span>
+            <div>
+              <h5 class="text-xs font-bold text-slate-200 uppercase tracking-wider">Fraud protection</h5>
+            </div>
+          </div>
+          <!-- Req 7 -->
+          <div class="bg-slate-900/40 border border-slate-800 p-4 rounded-xl flex items-start gap-3">
+            <span class="text-emerald-400 font-bold">✓</span>
+            <div>
+              <h5 class="text-xs font-bold text-slate-200 uppercase tracking-wider">Refund handling</h5>
+            </div>
+          </div>
+          <!-- Req 8 -->
+          <div class="bg-slate-900/40 border border-slate-800 p-4 rounded-xl flex items-start gap-3">
+            <span class="text-emerald-400 font-bold">✓</span>
+            <div>
+              <h5 class="text-xs font-bold text-slate-200 uppercase tracking-wider">TDS compliance</h5>
+            </div>
+          </div>
+          <!-- Req 9 -->
+          <div class="bg-slate-900/40 border border-slate-800 p-4 rounded-xl flex items-start gap-3">
+            <span class="text-emerald-400 font-bold">✓</span>
+            <div>
+              <h5 class="text-xs font-bold text-slate-200 uppercase tracking-wider">Banking integration</h5>
+            </div>
+          </div>
+          <!-- Req 10 -->
+          <div class="bg-slate-900/40 border border-slate-800 p-4 rounded-xl flex items-start gap-3">
+            <span class="text-emerald-400 font-bold">✓</span>
+            <div>
+              <h5 class="text-xs font-bold text-slate-200 uppercase tracking-wider">Scalable architecture</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section id="tab-models" class="hidden space-y-8">
+      
+      <div>
+        <div class="border-b border-slate-800/80 pb-4 mb-5">
+          <h2 class="text-xs font-bold uppercase tracking-widest text-indigo-400">Section 5</h2>
+          <p class="text-2xl font-black text-white tracking-tight mt-0.5">The 5 Possible Payment Models</p>
+        </div>
+
+        <!-- Models Evaluation Matrix Table -->
+        <div class="bg-slate-950/80 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+          <table class="min-w-full divide-y divide-slate-800 text-left text-xs md:text-sm">
+            <thead class="bg-slate-900/40 text-slate-400">
+              <tr>
+                <th scope="col" class="px-6 py-4 font-bold uppercase tracking-wider">Model</th>
+                <th scope="col" class="px-6 py-4 font-bold uppercase tracking-wider">Name</th>
+                <th scope="col" class="px-6 py-4 font-bold uppercase tracking-wider">Speed</th>
+                <th scope="col" class="px-6 py-4 font-bold uppercase tracking-wider">Safety</th>
+                <th scope="col" class="px-6 py-4 font-bold uppercase tracking-wider">Complexity</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60 text-slate-200">
+              <tr onclick="selectModel(1)" class="hover:bg-slate-900/40 cursor-pointer transition-all duration-150" id="tbl-row-1">
+                <td class="px-6 py-4 font-bold font-mono text-indigo-400">Model 1</td>
+                <td class="px-6 py-4 text-slate-100 font-semibold">Direct Instant Bank Transfer</td>
+                <td class="px-6 py-4 text-indigo-300">Very Fast</td>
+                <td class="px-6 py-4"><span class="text-rose-400 font-semibold bg-rose-500/10 px-2 py-0.5 rounded">High Risk</span></td>
+                <td class="px-6 py-4 text-slate-400">Medium</td>
+              </tr>
+              <tr onclick="selectModel(2)" class="hover:bg-slate-900/40 cursor-pointer transition-all duration-150" id="tbl-row-2">
+                <td class="px-6 py-4 font-bold font-mono text-indigo-400">Model 2</td>
+                <td class="px-6 py-4 text-slate-100 font-semibold">Wallet + Instant Withdrawal</td>
+                <td class="px-6 py-4 text-slate-300">Fast</td>
+                <td class="px-6 py-4"><span class="text-amber-400 font-semibold bg-amber-500/10 px-2 py-0.5 rounded">Medium Risk</span></td>
+                <td class="px-6 py-4 text-slate-400">Medium</td>
+              </tr>
+              <tr onclick="selectModel(3)" class="hover:bg-slate-900/40 cursor-pointer transition-all duration-150" id="tbl-row-3">
+                <td class="px-6 py-4 font-bold font-mono text-indigo-400">Model 3</td>
+                <td class="px-6 py-4 text-slate-100 font-semibold">Scheduled Batch Payout</td>
+                <td class="px-6 py-4 text-slate-400">Slow</td>
+                <td class="px-6 py-4"><span class="text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded">Very Safe</span></td>
+                <td class="px-6 py-4 text-slate-400">Easy</td>
+              </tr>
+              <tr onclick="selectModel(4)" class="hover:bg-slate-900/40 cursor-pointer transition-all duration-150" id="tbl-row-4">
+                <td class="px-6 py-4 font-bold font-mono text-indigo-400">Model 4</td>
+                <td class="px-6 py-4 text-slate-100 font-extrabold flex items-center gap-2">
+                  Hybrid Wallet + Hold Period 
+                  <span class="text-[9px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.5 rounded font-bold uppercase tracking-wider">Recommended</span>
+                </td>
+                <td class="px-6 py-4 text-slate-300">Balanced</td>
+                <td class="px-6 py-4"><span class="text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded">Safest</span></td>
+                <td class="px-6 py-4 text-slate-400">Medium</td>
+              </tr>
+              <tr onclick="selectModel(5)" class="hover:bg-slate-900/40 cursor-pointer transition-all duration-150" id="tbl-row-5">
+                <td class="px-6 py-4 font-bold font-mono text-indigo-400">Model 5</td>
+                <td class="px-6 py-4 text-slate-100 font-semibold">Escrow + Settlement Verification System</td>
+                <td class="px-6 py-4 text-slate-300">Advanced</td>
+                <td class="px-6 py-4"><span class="text-indigo-400 font-semibold bg-indigo-500/10 px-2 py-0.5 rounded">Enterprise Grade</span></td>
+                <td class="px-6 py-4 text-slate-400">High</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-2">
+        
+        <!-- Left Visualizing Core Flowchart Block -->
+        <div class="lg:col-span-8 space-y-6">
+          <div class="bg-slate-950 border border-slate-800/80 rounded-2xl p-6 relative overflow-hidden">
+            <span class="text-[9px] font-black tracking-widest text-indigo-400 bg-indigo-500/10 px-3 py-1 rounded-full uppercase" id="model-badge">MODEL 4 SPECIFICATION</span>
+            <h3 class="text-xl font-bold text-white mt-4" id="model-title-display">MODEL 4 — HYBRID WALLET + HOLD PERIOD</h3>
+            <p class="text-xs text-slate-400 mt-1" id="model-subtitle-display">Recruiter sees earnings instantly, but money unlocks only after safety verification period.</p>
+            
+            <!-- Visual Flowchart Node Generator -->
+            <div class="mt-6">
+              <h4 class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">Payout Pipeline Flowchart</h4>
+              <div class="bg-slate-900/30 rounded-xl p-6 border border-slate-800/60" id="model-flowchart-container">
+                <!-- Visualized automatically via Javascript -->
+              </div>
+            </div>
+
+            <!-- Simple Explanation Grid -->
+            <div class="mt-6 border-t border-slate-800/60 pt-5">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">Simple Explanation</h4>
+              <p class="text-xs md:text-sm text-slate-200 mt-1.5 leading-relaxed font-medium" id="model-simple-exp">
+                Student pays fee &rarr; calculated immediately but sits locked &rarr; hold timeline finishes &rarr; recruiter withdraws cleanly.
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-slate-950 border border-slate-800/80 rounded-2xl p-6 space-y-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+              <div>
+                <h4 class="text-xs font-bold text-white uppercase tracking-widest">Sandbox Transaction Simulator</h4>
+                <p class="text-[11px] text-slate-400 mt-1">Simulate real user payments and watch exactly how funds process or experience exploits based on the model chosen above.</p>
+              </div>
+              <button onclick="startSimulation()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-5 rounded-xl text-xs transition duration-150 flex items-center gap-2 shadow-lg shadow-indigo-600/20 shrink-0 self-stretch md:self-auto justify-center">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path></svg>
+                Dispatch Simulated Payout
+              </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Digital Wallet Output -->
+              <div class="bg-slate-900/30 rounded-xl p-4 border border-slate-800 flex flex-col justify-between h-44">
+                <div>
+                  <span class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Mock Recruiter Wallet UI</span>
+                  <div class="grid grid-cols-2 gap-4 mt-4">
+                    <div>
+                      <span class="text-[10px] text-slate-400 block font-medium">Pending Balance</span>
+                      <strong class="text-lg font-mono text-amber-400" id="wallet-pending">₹0</strong>
+                    </div>
+                    <div>
+                      <span class="text-[10px] text-slate-400 block font-medium">Withdrawable Cash</span>
+                      <strong class="text-lg font-mono text-emerald-400" id="wallet-available">₹0</strong>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-[9px] text-slate-500 border-t border-slate-800/60 pt-2.5 flex justify-between">
+                  <span>Recruiter Mapped: R-7212</span>
+                  <span>TDS Deducted: 10%</span>
+                </div>
+              </div>
+
+              <!-- Console Audit logs -->
+              <div class="bg-slate-900/30 rounded-xl p-4 border border-slate-800 h-44 flex flex-col">
+                <span class="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-2">Live Ledger Engine Logs</span>
+                <div class="flex-1 overflow-y-auto text-[10.5px] font-mono space-y-2 text-indigo-300 pr-1" id="simulator-console">
+                  <p class="text-slate-500">// Ready. Choose a model above and click trigger payout to start checking the ledger rules.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-4 space-y-6">
+          
+          <!-- Advantages -->
+          <div class="bg-emerald-950/5 border border-emerald-500/20 rounded-2xl p-5 space-y-3">
+            <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest bg-emerald-500/10 px-2.5 py-1 rounded">Advantages</span>
+            <ul class="text-xs text-slate-300 space-y-2 font-medium" id="model-advantages-list">
+              <!-- Handled in JS -->
+            </ul>
+          </div>
+
+          <!-- Disadvantages -->
+          <div class="bg-rose-950/5 border border-rose-500/20 rounded-2xl p-5 space-y-3">
+            <span class="text-[10px] font-bold text-rose-400 uppercase tracking-widest bg-rose-500/10 px-2.5 py-1 rounded">Disadvantages</span>
+            <ul class="text-xs text-slate-300 space-y-2 font-medium" id="model-disadvantages-list">
+              <!-- Handled in JS -->
+            </ul>
+          </div>
+
+          <!-- Biggest Loopholes -->
+          <div class="bg-amber-950/5 border border-amber-500/20 rounded-2xl p-5 space-y-3">
+            <span class="text-[10px] font-bold text-amber-400 uppercase tracking-widest bg-amber-500/10 px-2.5 py-1 rounded">Biggest Loopholes</span>
+            <div class="text-xs text-slate-300 space-y-2 font-medium leading-relaxed" id="model-loopholes-desc">
+              <!-- Handled in JS -->
+            </div>
+          </div>
+
+          <!-- Verdict Box -->
+          <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 space-y-2">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Final Verdict</span>
+            <p class="text-xs text-slate-200 leading-relaxed font-semibold" id="model-verdict-desc">
+              Excellent outcome and highly recommended strategy.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <div class="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 rounded-3xl p-6 md:p-8 space-y-6 glow-indigo">
+      <div class="border-b border-slate-800/80 pb-4">
+        <span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full uppercase tracking-wider">Final Recommendation</span>
+        <h3 class="text-2xl font-black text-white mt-3 tracking-tight">Best Model for VIS: Model 4 — Hybrid Wallet + Hold Period</h3>
+        <p class="text-xs text-slate-400 mt-1">Why Model 4 represents the optimal compromise between builder constraints and promoter excitement.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-slate-950/80 p-5 rounded-xl border border-slate-800">
+          <h5 class="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-2">Good recruiter experience</h5>
+          <p class="text-[11.5px] text-slate-400 leading-relaxed">Instant visibility establishes high trust. Promoters watch commission enter Pending status seconds after tuition deposits clear.</p>
+        </div>
+        <div class="bg-slate-950/80 p-5 rounded-xl border border-slate-800">
+          <h5 class="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-2">Fraud protection</h5>
+          <p class="text-[11.5px] text-slate-400 leading-relaxed">Holding duration leaves ample time for automated activity checking algorithms to flag duplicate sign-ups or mock submissions.</p>
+        </div>
+        <div class="bg-slate-950/80 p-5 rounded-xl border border-slate-800">
+          <h5 class="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-2">Refund safety</h5>
+          <p class="text-[11.5px] text-slate-400 leading-relaxed">If students cancel registration or trigger money chargebacks within the hold cycle, commission reverses smoothly within internal nodes.</p>
+        </div>
+        <div class="bg-slate-950/80 p-5 rounded-xl border border-slate-800">
+          <h5 class="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-2">Operational Controls</h5>
+          <p class="text-[11.5px] text-slate-400 leading-relaxed">Enables better compliance, easier scalability, better finance control, and better bank approval probability.</p>
+        </div>
+      </div>
+
+      <div class="bg-slate-950/60 p-6 rounded-2xl border border-slate-800">
+        <h4 class="text-xs font-bold uppercase text-indigo-400 tracking-wider">Simple Final Understanding</h4>
+        <div class="text-xs text-slate-300 mt-3 space-y-2">
+          <p class="text-sm font-semibold text-slate-200">VIS is not just building: "a referral payment feature." VIS is actually building:</p>
+          <ul class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-3 pt-2">
+            <li class="bg-slate-900/60 p-3 rounded-lg border border-slate-800/80 font-bold">• A fintech payout infrastructure</li>
+            <li class="bg-slate-900/60 p-3 rounded-lg border border-slate-800/80 font-bold">• A recruiter earning marketplace</li>
+            <li class="bg-slate-900/60 p-3 rounded-lg border border-slate-800/80 font-bold">• A digital wallet system</li>
+            <li class="bg-slate-900/60 p-3 rounded-lg border border-slate-800/80 font-bold">• A banking automation engine</li>
+            <li class="bg-slate-900/60 p-3 rounded-lg border border-slate-800/80 font-bold">• A scalable commission ecosystem</li>
+          </ul>
+        </div>
+        <p class="text-[11px] text-slate-400 mt-5 italic border-t border-slate-800/80 pt-3">
+          The closest real-world example is: "Uber driver payout infrastructure adapted for recruiter referral commissions."
+        </p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/80 bg-[#030712] px-6 py-5 flex flex-col md:flex-row justify-between items-center text-[10px] text-slate-500 gap-4">
+    <p>VIS Referral Commission Auto-Payout System Specification Suite Dashboard</p>
+    <p>© 2026 VIS Infrastructure Team. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Tab Controller
+    function switchTab(tabId) {
+      // Hide all main pages
+      document.getElementById('tab-overview').classList.add('hidden');
+      document.getElementById('tab-pipeline').classList.add('hidden');
+      document.getElementById('tab-stages').classList.add('hidden');
+      document.getElementById('tab-models').classList.add('hidden');
+
+      // Reset button tab highlights
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-sm');
+        btn.classList.add('text-slate-400', 'hover:text-slate-200');
+      });
+
+      // Show active page and set active state style
+      document.getElementById('tab-' + tabId).classList.remove('hidden');
+      const activeBtn = document.getElementById('tab-btn-' + tabId);
+      activeBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-sm');
+      activeBtn.classList.remove('text-slate-400', 'hover:text-slate-200');
+    }
+
+    // Models Database Config (Directly derived from provided PDF pages Verbatim)
+    const paymentModels = {
+      1: {
+        badge: "MODEL 1 SPECIFICATION",
+        title: "MODEL 1 — DIRECT INSTANT BANK TRANSFER",
+        subtitle: "The moment student payment is confirmed, the system instantly transfers money directly into recruiter bank account automatically.",
+        simpleExplanation: "Student pays fees. System instantly calculates recruiter commission. Money directly reaches recruiter bank account automatically.",
+        advantages: [
+          "Fastest payout system",
+          "Excellent recruiter experience",
+          "No wallet management",
+          "Minimal pending balances",
+          "Feels modern and premium"
+        ],
+        disadvantages: [
+          "Refund risk",
+          "Chargeback risk",
+          "Fraud payout risk",
+          "Failed transfer handling complexity",
+          "Difficult reconciliation",
+          "Harder TDS management"
+        ],
+        loopholes: `
+          <div class="space-y-3">
+            <div>
+              <p class="font-bold text-rose-400">1. Refund Problem</p>
+              <p class="mt-0.5 text-[11px] text-slate-300">If student cancels later and company refunds fees, recruiter already got paid. Company must recover money manually.</p>
+            </div>
+            <div>
+              <p class="font-bold text-rose-400">2. Fraud Problem</p>
+              <p class="mt-0.5 text-[11px] text-slate-300 font-medium">Fake referrals may get paid instantly before fraud detection.</p>
+            </div>
+            <div>
+              <p class="font-bold text-rose-400">3. Chargeback Problem</p>
+              <p class="mt-0.5 text-[11px] text-slate-300 font-medium font-medium">Card payments may reverse after 30–120 days.</p>
+            </div>
+          </div>
+        `,
+        verdict: "Excellent user experience. Financially risky. Not recommended for education/refund-based business.",
+        flowchart: [
+          "Student Makes Payment\n• UPI/Card/Net Banking",
+          "Payment Gateway Verification\n• Transaction successful\n• Payment ID generated",
+          "Zoho Confirms Payment\n• Receipt generated\n• Student payment updated",
+          "Commission Engine Triggered\n• Which stage completed?\n• How much commission?",
+          "Bank API Triggered\n• Recruiter bank identified\n• Transfer instruction sent",
+          "Instant Bank Transfer\n• IMPS/UPI payout\n• Transaction completed",
+          "Recruiter Receives Money\n• SMS confirmation\n• Dashboard updated"
+        ]
+      },
+      2: {
+        badge: "MODEL 2 SPECIFICATION",
+        title: "MODEL 2 — WALLET + INSTANT WITHDRAWAL",
+        subtitle: "Commission first enters recruiter wallet. Recruiter manually withdraws money anytime. Similar to Uber driver wallet.",
+        simpleExplanation: "Recruiter earns commission. Money first appears inside wallet. Recruiter withdraws anytime. Exactly like Uber driver earnings.",
+        advantages: [
+          "Uber-like experience",
+          "Better accounting control",
+          "Better payout flexibility",
+          "Easier scalability",
+          "Better recruiter engagement"
+        ],
+        disadvantages: [
+          "Wallet liability issue",
+          "RBI regulation concerns",
+          "Refund-after-withdrawal problem",
+          "Dormant balances"
+        ],
+        loopholes: `
+          <div class="space-y-2">
+            <p class="font-bold text-amber-400">Refund Exposure</p>
+            <p class="text-[11px] text-slate-300 leading-relaxed">Recruiters can empty their wallet via withdrawal before any student cancellations or payment dispute claims arise, exposing corporate funds.</p>
+          </div>
+        `,
+        verdict: "Good startup model. Still risky without hold-period protection.",
+        flowchart: [
+          "Student Payment Confirmed",
+          "Commission Engine Runs\n• Stage validation\n• Commission amount fixed",
+          "Wallet Ledger Updated\n• Recruiter balance updated\n• Transaction logged",
+          "Recruiter Dashboard Updated\n• Available earnings shown\n• Withdrawal button enabled",
+          "Recruiter Clicks Withdraw\n• Amount selected\n• Bank verified",
+          "Payout API Triggered\n• IMPS/NEFT/UPI transfer",
+          "Money Sent To Bank Account"
+        ]
+      },
+      3: {
+        badge: "MODEL 3 SPECIFICATION",
+        title: "MODEL 3 — SCHEDULED BATCH PAYOUT",
+        subtitle: "Company stores commissions and processes automated mass settlements weekly or monthly.",
+        simpleExplanation: "Company stores commissions. Everyone gets paid together weekly/monthly.",
+        advantages: [
+          "Financially safest model for accounting teams",
+          "Simplifies bulk tax deduction calculations",
+          "Low risk of payout on cancelled students"
+        ],
+        disadvantages: [
+          "Weakest recruiter motivation due to payout delays",
+          "Feels slow and traditional, not like modern tech"
+        ],
+        loopholes: `
+          <div class="space-y-1">
+            <p class="font-bold text-emerald-400">Zero System Loopholes</p>
+            <p class="text-[11px] text-slate-300 leading-relaxed">Provides maximum safety as accounting holds all pending funds, but heavily delays reward incentive momentum.</p>
+          </div>
+        `,
+        verdict: "Safest financial model. Weakest recruiter motivation.",
+        flowchart: [
+          "Student Payments Received",
+          "Commission Calculated",
+          "Earnings Stored Internally\n• Weekly accumulation\n• Monthly accumulation",
+          "Scheduled Payout Day Arrives\n• Friday/Month-end",
+          "Bulk Payout File Generated\n• All recruiters together",
+          "Bank Processes Bulk Transfer",
+          "Recruiters Receive Money"
+        ]
+      },
+      4: {
+        badge: "MODEL 4 (RECOMMENDED) SPECIFICATION",
+        title: "MODEL 4 — HYBRID WALLET + HOLD PERIOD",
+        subtitle: "Provides balanced security. Recruiter sees earnings instantly as pending, which unlock for withdrawal after safety hold buffer period.",
+        simpleExplanation: "Recruiter sees earnings instantly, but money unlocks only after safety verification period.",
+        advantages: [
+          "Good recruiter experience",
+          "Fraud protection",
+          "Refund safety",
+          "Better compliance",
+          "Easier scalability",
+          "Better finance control",
+          "Better bank approval probability"
+        ],
+        disadvantages: [
+          "Requires custom hold state database logic scheduler"
+        ],
+        loopholes: `
+          <div class="space-y-1">
+            <p class="font-bold text-emerald-400">Zero Critical Loopholes</p>
+            <p class="text-[11px] text-slate-300 leading-relaxed">Effectively locks student refund and chargeback window vulnerability inside the holding timeline before funds exit the company bank.</p>
+          </div>
+        `,
+        verdict: "Best overall system. Recommended for VIS.",
+        flowchart: [
+          "Student Payment Received",
+          "Settlement Verification\n• Payment fully settled?\n• Chargeback pending?",
+          "Commission Calculated",
+          "Pending Wallet Balance\n• Visible but locked\n• Fraud checks running",
+          "Hold Period Ends\n• Status changes to withdrawable",
+          "Withdrawable Wallet Balance\n• Amount unlocked\n• Withdrawal enabled",
+          "Recruiter Requests Withdraw",
+          "Payout API Sends Money",
+          "Recruiter Receives Payment"
+        ]
+      },
+      5: {
+        badge: "MODEL 5 SPECIFICATION",
+        title: "MODEL 5 — ESCROW + SETTLEMENT VERIFICATION SYSTEM",
+        subtitle: "Advanced enterprise-grade verification holding gateway.",
+        simpleExplanation: "Student payments are held in digital escrow nodes until registration, gateway clearance, and risk profiles pass.",
+        advantages: [
+          "Virtually impossible to execute fraud campaigns",
+          "Extremely transparent audit ledger tracking"
+        ],
+        disadvantages: [
+          "High engineering complexity",
+          "Creates operational delays"
+        ],
+        loopholes: `
+          <div class="space-y-2">
+            <p class="font-bold text-indigo-400">Complex Verification Friction</p>
+            <p class="text-[11px] text-slate-300 leading-relaxed">High technical barriers can postpone platform launch dates and increase merchant gateway transaction fees.</p>
+          </div>
+        `,
+        verdict: "Advanced enterprise-grade system. High security but extreme complexity.",
+        flowchart: [
+          "Student Payment Received",
+          "Settlement Verification\n• Bank settlement confirmed\n• Payment gateway validated",
+          "Fraud Detection Layer\n• Duplicate checks\n• Risk scoring",
+          "Escrow Holding Ledger\n• Funds temporarily held",
+          "Commission Approved\n• Audit verified\n• Finance validated",
+          "Withdrawable Wallet Updated",
+          "Automated Bank Payout"
+        ]
+      }
+    };
+
+    let activeModelId = 4; // Default recommended
+
+    function selectModel(id) {
+      activeModelId = id;
+      const model = paymentModels[id];
+
+      // Highlight selected row in table
+      for (let i = 1; i <= 5; i++) {
+        const row = document.getElementById('tbl-row-' + i);
+        if (i === id) {
+          row.classList.add('bg-slate-900', 'border-l-4', 'border-indigo-500');
+        } else {
+          row.classList.remove('bg-slate-900', 'border-l-4', 'border-indigo-500');
+        }
+      }
+
+      // Update Text Fields
+      document.getElementById('model-badge').innerText = model.badge;
+      document.getElementById('model-title-display').innerText = model.title;
+      document.getElementById('model-subtitle-display').innerText = model.subtitle;
+      document.getElementById('model-simple-exp').innerHTML = model.simpleExplanation;
+      document.getElementById('model-verdict-desc').innerText = model.verdict;
+
+      // Render Advantages
+      const advList = document.getElementById('model-advantages-list');
+      advList.innerHTML = '';
+      model.advantages.forEach(adv => {
+        advList.innerHTML += `
+          <li class="flex items-start gap-2">
+            <span class="text-emerald-400 font-bold shrink-0">✓</span>
+            <span>${adv}</span>
+          </li>`;
+      });
+
+      // Render Disadvantages
+      const disList = document.getElementById('model-disadvantages-list');
+      disList.innerHTML = '';
+      model.disadvantages.forEach(dis => {
+        disList.innerHTML += `
+          <li class="flex items-start gap-2">
+            <span class="text-rose-400 font-bold shrink-0">✕</span>
+            <span>${dis}</span>
+          </li>`;
+      });
+
+      // Render Loopholes
+      document.getElementById('model-loopholes-desc').innerHTML = model.loopholes;
+
+      // Render Styled Flowchart Path Node by Node
+      const flowContainer = document.getElementById('model-flowchart-container');
+      flowContainer.innerHTML = '';
+      
+      model.flowchart.forEach((nodeText, idx) => {
+        const isLast = idx === model.flowchart.length - 1;
+        const cleanNodeText = nodeText.replace(/\n/g, '<br>');
+        flowContainer.innerHTML += `
+          <div class="flex flex-col items-center">
+            <div class="bg-slate-950/80 border border-slate-800 p-3 rounded-lg w-full max-w-md text-center hover:border-slate-700 transition duration-150">
+              <span class="text-[9px] text-slate-500 font-mono font-bold block uppercase tracking-wider">Step 0${idx+1}</span>
+              <p class="text-xs text-white font-bold mt-1 leading-relaxed">${cleanNodeText}</p>
+            </div>
+            ${!isLast ? `
+              <div class="py-2.5 flex justify-center items-center">
+                <svg class="w-3.5 h-3.5 text-indigo-500/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 13l-7 7-7-7m14-6l-7 7-7-7"></path></svg>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      });
+
+      // Clear Simulator
+      document.getElementById('wallet-pending').innerText = '₹0';
+      document.getElementById('wallet-available').innerText = '₹0';
+      document.getElementById('simulator-console').innerHTML = `<p class="text-slate-500">// Ready to simulate Model ${id}. Click "Dispatch Simulated Payout" to trigger live checks.</p>`;
+    }
+
+    // Interactive Sandbox Simulator
+    let simTimer = null;
+    function startSimulation() {
+      // Force users into Evaluation tab to see live sandbox
+      switchTab('models');
+
+      const consoleBox = document.getElementById('simulator-console');
+      const pendingText = document.getElementById('wallet-pending');
+      const availableText = document.getElementById('wallet-available');
+
+      if (simTimer) clearTimeout(simTimer);
+      
+      consoleBox.innerHTML = '';
+      pendingText.innerText = "₹0";
+      availableText.innerText = "₹0";
+
+      function logLine(msg, textClass = "text-slate-300") {
+        consoleBox.innerHTML += `<p class="${textClass}">[${new Date().toLocaleTimeString()}] ${msg}</p>`;
+        consoleBox.scrollTop = consoleBox.scrollHeight;
+      }
+
+      logLine(`Initializing ledger simulator on Model ${activeModelId} architecture...`, "text-slate-400 font-bold");
+
+      simTimer = setTimeout(() => {
+        logLine("Event: Student pays tuition/registration fees (₹10,000 confirmed).", "text-slate-200 font-semibold");
+
+        simTimer = setTimeout(() => {
+          logLine("Trigger: Payment gateway validates transaction & Zoho generates invoice receipts.", "text-indigo-400");
+
+          simTimer = setTimeout(() => {
+            logLine("TDS Rule Engine: Withholding tax 10% deducted instantly (₹1,000 saved).", "text-indigo-400");
+            const netAmount = 9000;
+
+            simTimer = setTimeout(() => {
+              logLine(`Calculated net commission available: ₹${netAmount.toLocaleString()}`, "text-emerald-400 font-bold");
+
+              // Routing logic simulated based on model select
+              if (activeModelId === 1) {
+                logLine("Direct dispatch mode engaged: Sending payout instruct directly via Bank API...", "text-amber-400");
+                simTimer = setTimeout(() => {
+                  logLine(`IMPS Callback: SUCCESS. Commission of ₹${netAmount.toLocaleString()} directly settled to Recruiter Bank Account.`, "text-emerald-400 font-bold");
+                  availableText.innerText = "₹0";
+                  pendingText.innerText = "₹0";
+
+                  // Show Refund problem Loophole
+                  simTimer = setTimeout(() => {
+                    logLine("⚠️ Refund Triggered: Student cancelled registration after 24 hours.", "text-rose-500 font-bold");
+                    logLine("❌ CRITICAL EXPLOIT: Recruiter bank funds already cleared. VIS must manual-recover ₹9,000.", "text-rose-400 font-extrabold");
+                  }, 2500);
+                }, 1200);
+
+              } else if (activeModelId === 2) {
+                logLine("Uber-style wallet update: Storing net commission in virtual recruiter wallet...", "text-indigo-400");
+                simTimer = setTimeout(() => {
+                  availableText.innerText = `₹${netAmount.toLocaleString()}`;
+                  logLine(`Recruiter notified. Dashboard available balance updated to ₹${netAmount.toLocaleString()}`, "text-emerald-400 font-semibold");
+                  
+                  simTimer = setTimeout(() => {
+                    logLine("Recruiter clicks manually 'Withdraw'. Dispatching UPI payout...", "text-indigo-400");
+                    availableText.innerText = "₹0";
+                    logLine(`Transfer confirmed. Net ₹${netAmount.toLocaleString()} settled in Recruiter bank account.`, "text-emerald-400 font-bold");
+
+                    // Show Refund loophole trigger
+                    simTimer = setTimeout(() => {
+                      logLine("⚠️ Refund Triggered: Student requests fee cancellation.", "text-rose-500 font-bold");
+                      logLine("❌ BALANCES COMPROMISED: Recruiter already completed withdraw sequence. Recruiter ledger falls negative (₹-9,000) requiring operational recovery.", "text-rose-400 font-extrabold");
+                    }, 2500);
+                  }, 1500);
+                }, 1000);
+
+              } else if (activeModelId === 3) {
+                logLine("Scheduled batch mode: Retaining calculated reward in system ledger.", "text-indigo-400");
+                simTimer = setTimeout(() => {
+                  pendingText.innerText = `₹${netAmount.toLocaleString()}`;
+                  logLine("Earning accrued internally. Account restricted to Friday Batch Sweep.", "text-amber-400");
+                  
+                  simTimer = setTimeout(() => {
+                    logLine("Scheduled sweep day arrived. Auto compiling verified logs...", "text-indigo-400");
+                    logLine("Mass disbursement processed. Funds distributed safely.", "text-emerald-400 font-bold");
+                    pendingText.innerText = "₹0";
+                  }, 2500);
+                }, 1000);
+
+              } else if (activeModelId === 4) {
+                logLine("Hybrid security protocol: Recording commission inside locked holding ledger.", "text-indigo-400");
+                simTimer = setTimeout(() => {
+                  pendingText.innerText = `₹${netAmount.toLocaleString()}`;
+                  logLine(`Success. Credited ₹${netAmount.toLocaleString()} as 'Locked Pending Hold' (Safeguard Period).`, "text-amber-400 font-semibold");
+
+                  simTimer = setTimeout(() => {
+                    logLine("Hold timer expired. Fraud validation checked. Student refund window successfully closed.", "text-indigo-400");
+                    logLine("Transitioning state: Moving pending ledger amount into 'Available' status.", "text-emerald-400 font-semibold");
+                    
+                    pendingText.innerText = "₹0";
+                    availableText.innerText = `₹${netAmount.toLocaleString()}`;
+
+                    simTimer = setTimeout(() => {
+                      logLine("User manual withdrawal request triggered securely.", "text-slate-300");
+                      logLine("System dispatch successful. Operations secure.", "text-emerald-400 font-bold");
+                      availableText.innerText = "₹0";
+                    }, 2000);
+                  }, 3000);
+                }, 1000);
+
+              } else if (activeModelId === 5) {
+                logLine("Diverting student funds into dedicated Escrow custody node...", "text-indigo-400");
+                simTimer = setTimeout(() => {
+                  logLine("Fraud audit & class attendance check algorithm running verification checks...", "text-indigo-400");
+                  
+                  simTimer = setTimeout(() => {
+                    logLine("Verification complete. Releasing escrow node ledger securely.", "text-emerald-400 font-semibold");
+                    availableText.innerText = `₹${netAmount.toLocaleString()}`;
+                  }, 2000);
+                }, 1000);
+              }
+
+            }, 1000);
+          }, 1000);
+        }, 1000);
+      }, 1000);
+    }
+
+    // Default setup selection
+    window.onload = function() {
+      selectModel(4);
+    };
+  </script>
+
+</body>
+</html>
